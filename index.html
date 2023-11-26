@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submit</title>
+
+    <style>
+        body {
+            display: grid;
+            place-items: center;
+        }
+
+        .form-box {
+            width: 400px;
+            height: auto;
+            padding: 30px;
+            background: #fff9c0;
+            margin-top: 50px;
+        }
+
+        #btn {
+            display: block;
+
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-box">
+        <form onsubmit="caculateTemp(); return false" id="form">
+            <label for="temp">Please enter the temprature you'd like to convert...</label><br><br>
+            <input type="number" id="temp">
+            <select name="temp_diff" id="temp_diff">
+                <option value="cel">Celsius</option>
+                <option value="fah">Fahrenheit</option>
+            </select>
+            <input id="btn" type="submit" name="temp"> <br>
+            <span id="resultContainer"></span>
+        </form>
+    </div>
+
+    <script>
+
+        const caculateTemp = () => {
+
+            var selectTemp = document.getElementById('temp_diff');
+            // var btn = document.getElementById('btn');
+            var resultBox = document.getElementById('resultContainer');
+
+            var getTemp = document.getElementById('temp').value;
+            const valueTemp = selectTemp.options[selectTemp.selectedIndex].value;
+
+            const celToFah = (cel) =>{
+                let fahrenheit = Math.round((cel * 9/5) + 32);
+                return fahrenheit;
+            }
+
+            const fahToCel = (fah) =>{
+                let celsius = Math.round((fah - 32) * 5/9);
+                return celsius;
+            }
+
+            let result;
+
+            if (valueTemp == 'cel') {
+                result = celToFah(getTemp);
+                resultBox.innerHTML = `${result}° Celsius`;
+            } else {
+                result = fahToCel(getTemp);
+                resultBox.innerHTML = `${result}° Fahrenheit`;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
